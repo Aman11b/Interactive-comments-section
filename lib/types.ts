@@ -24,7 +24,19 @@ export type Comment = {
   replies: Reply[];
 };
 
+export type CommentCardProps = {
+  comment: Comment;
+};
+
 export type CommentsData = {
   currentUser: User;
   comments: Comment[];
+};
+
+export type CommentListProps = {
+  commentData: CommentsData;
+};
+
+export type VoteControlProps = {
+  score: number;
 };
