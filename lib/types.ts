@@ -15,6 +15,10 @@ export type Reply = {
   user: User;
 };
 
+export type ReplayCardProps = {
+  reply: Reply;
+};
+
 export type Comment = {
   id: number;
   content: string;
@@ -25,7 +29,9 @@ export type Comment = {
 };
 
 export type CommentCardProps = {
-  comment: Comment;
+  comment: Comment | Reply;
+  isReply?: boolean;
+  currentUser: User;
 };
 
 export type CommentsData = {
@@ -39,4 +45,8 @@ export type CommentListProps = {
 
 export type VoteControlProps = {
   score: number;
+};
+
+export type CommentActionsProps = {
+  isCurrentUser: boolean;
 };
