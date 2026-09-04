@@ -50,3 +50,7 @@ export type VoteControlProps = {
 export type CommentActionsProps = {
   isCurrentUser: boolean;
 };
+
+export type CommentFormProps = {
+  currentUser: User;
+};
