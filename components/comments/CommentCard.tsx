@@ -7,6 +7,7 @@ export default function CommentCard({
   comment,
   isReply = false,
   currentUser,
+  onVote,
 }: CommentCardProps) {
   const imageName = comment.user.image.png.split("/").pop();
   const isCurrentUser = comment.user.username === currentUser.username;
@@ -15,7 +16,10 @@ export default function CommentCard({
       <article className=" bg-white p-6 rounded-lg w-full">
         <div className="flex flex-col md:flex-row gap-4 md:gap-5">
           <div className="hidden md:block">
-            <VoteControl score={comment.score} />
+            <VoteControl
+              score={comment.score}
+              onVote={(amount) => onVote(comment.id, amount)}
+            />
           </div>
           <div className="flex-1 order-1 md:order-2 min-w-0">
             <header className="flex items-center gap-4">
@@ -51,7 +55,10 @@ export default function CommentCard({
               {comment.content}
             </p>
             <div className="mt-4 flex items-center justify-between md:hidden">
-              <VoteControl score={comment.score} />
+              <VoteControl
+                score={comment.score}
+                onVote={(amount) => onVote(comment.id, amount)}
+              />
               <div className=" ml-auto">
                 <CommentActions isCurrentUser={isCurrentUser} />
               </div>
@@ -68,6 +75,7 @@ export default function CommentCard({
                 comment={reply}
                 isReply
                 currentUser={currentUser}
+                onVote={onVote}
               />
             ))}
           </div>

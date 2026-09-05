@@ -32,6 +32,7 @@ export type CommentCardProps = {
   comment: Comment | Reply;
   isReply?: boolean;
   currentUser: User;
+  onVote: (id: number, amount: number) => void;
 };
 
 export type CommentsData = {
@@ -45,6 +46,7 @@ export type CommentListProps = {
 
 export type VoteControlProps = {
   score: number;
+  onVote: (amount: number) => void;
 };
 
 export type CommentActionsProps = {
