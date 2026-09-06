@@ -11,11 +11,12 @@ export default function CommentCard({
   currentUser,
   onVote,
   onEdit,
+  onDelete,
 }: CommentCardProps) {
   const imageName = comment.user.image.png.split("/").pop();
   const isCurrentUser = comment.user.username === currentUser.username;
   const [isEditing, setIsEditing] = useState(false);
-  const [editContent, setEditContent] = useState(comment.content);
+
   return (
     <>
       <article className=" bg-white p-6 rounded-lg w-full">
@@ -54,6 +55,10 @@ export default function CommentCard({
                     setIsEditing(true);
                   }}
                   isEditing={isEditing}
+                  onDelete={() => {
+                    if (!isCurrentUser) return;
+                    onDelete(comment.id);
+                  }}
                 />
               </div>
             </header>
@@ -94,6 +99,10 @@ export default function CommentCard({
                     setIsEditing(true);
                   }}
                   isEditing={isEditing}
+                  onDelete={() => {
+                    if (!isCurrentUser) return;
+                    onDelete(comment.id);
+                  }}
                 />
               </div>
             </div>
@@ -111,6 +120,7 @@ export default function CommentCard({
                 currentUser={currentUser}
                 onVote={onVote}
                 onEdit={onEdit}
+                onDelete={onDelete}
               />
             ))}
           </div>

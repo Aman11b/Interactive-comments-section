@@ -8,11 +8,13 @@ export default function CommentActions({
   isCurrentUser,
   isEditing,
   onEdit,
+  onDelete,
 }: CommentActionsProps) {
   return isCurrentUser ? (
     <div className="flex items-center gap-4">
       <button
         type="button"
+        onClick={onDelete}
         className={`flex items-center gap-2 font-bold text-pink-400 ${
           isEditing ? "cursor-not-allowed  opacity-50" : "cursor-pointer "
         }`}
@@ -30,6 +32,7 @@ export default function CommentActions({
       <button
         type="button"
         onClick={onEdit}
+        disabled={isEditing}
         className={`flex items-center gap-2 font-bold text-purple-600 ${
           isEditing ? "cursor-not-allowed  opacity-50" : "cursor-pointer"
         }`}

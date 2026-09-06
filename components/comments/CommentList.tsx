@@ -7,6 +7,16 @@ import CommentForm from "./CommentForm";
 
 export default function CommentList({ commentData }: CommentListProps) {
   const [comments, setComments] = useState(commentData.comments);
+  const handleDelete = (id: number) => {
+    setComments((currentComments) =>
+      currentComments
+        .filter((comment) => comment.id !== id)
+        .map((comment) => ({
+          ...comment,
+          replies: comment.replies.filter((reply) => reply.id !== id),
+        })),
+    );
+  };
 
   const handleVote = (id: number, amount: number) => {
     setComments((currentComments) =>
@@ -66,6 +76,7 @@ export default function CommentList({ commentData }: CommentListProps) {
           currentUser={commentData.currentUser}
           onVote={handleVote}
           onEdit={handleEdit}
+          onDelete={handleDelete}
         />
       ))}
       <CommentForm currentUser={commentData.currentUser} />

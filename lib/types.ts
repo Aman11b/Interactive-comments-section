@@ -34,6 +34,7 @@ export type CommentCardProps = {
   currentUser: User;
   onVote: (id: number, amount: number) => void;
   onEdit: (id: number, content: string) => void;
+  onDelete: (id: number) => void;
 };
 
 export type CommentsData = {
@@ -54,6 +55,7 @@ export type CommentActionsProps = {
   isCurrentUser: boolean;
   isEditing: boolean;
   onEdit: () => void;
+  onDelete: () => void;
 };
 
 export type CommentFormProps = {
