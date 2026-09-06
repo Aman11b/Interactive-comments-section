@@ -4,21 +4,43 @@ import DeleteIcon from "../../public/images/icon-delete.svg";
 import EditIcon from "../../public/images/icon-edit.svg";
 import ReplyIcon from "../../public/images/icon-reply.svg";
 
-export default function CommentActions({ isCurrentUser }: CommentActionsProps) {
+export default function CommentActions({
+  isCurrentUser,
+  isEditing,
+  onEdit,
+}: CommentActionsProps) {
   return isCurrentUser ? (
     <div className="flex items-center gap-4">
       <button
         type="button"
-        className="flex items-center gap-2 font-bold text-pink-400"
+        className={`flex items-center gap-2 font-bold text-pink-400 ${
+          isEditing ? "cursor-not-allowed  opacity-50" : "cursor-pointer "
+        }`}
+        disabled={isEditing}
       >
-        <Image src={DeleteIcon} alt="" width={14} height={16} />
+        <Image
+          src={DeleteIcon}
+          alt=""
+          width={14}
+          height={16}
+          className="h-auto"
+        />
         Delete
       </button>
       <button
         type="button"
-        className="flex items-center gap-2 font-bold text-purple-600"
+        onClick={onEdit}
+        className={`flex items-center gap-2 font-bold text-purple-600 ${
+          isEditing ? "cursor-not-allowed  opacity-50" : "cursor-pointer"
+        }`}
       >
-        <Image src={EditIcon} alt="" width={14} height={16} />
+        <Image
+          src={EditIcon}
+          alt=""
+          width={14}
+          height={16}
+          className="h-auto"
+        />
         Edit
       </button>
     </div>
@@ -27,7 +49,7 @@ export default function CommentActions({ isCurrentUser }: CommentActionsProps) {
       type="button"
       className="flex font-bold items-center gap-2 text-purple-600 "
     >
-      <Image src={ReplyIcon} alt="" width={14} height={16} />
+      <Image src={ReplyIcon} alt="" width={14} height={16} className="h-auto" />
       Reply
     </button>
   );

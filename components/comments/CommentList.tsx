@@ -33,6 +33,30 @@ export default function CommentList({ commentData }: CommentListProps) {
       }),
     );
   };
+
+  const handleEdit = (id: number, content: string) => {
+    setComments((currentComments) =>
+      currentComments.map((comment) => {
+        // Top level comment
+        if (comment.id === id) {
+          return {
+            ...comment,
+            content,
+          };
+        }
+        // replay
+        if (comment.replies.length > 0) {
+          return {
+            ...comment,
+            replies: comment.replies.map((reply) =>
+              reply.id === id ? { ...reply, content } : reply,
+            ),
+          };
+        }
+        return comment;
+      }),
+    );
+  };
   return (
     <section className="flex flex-col gap-6">
       {comments.map((comment) => (
@@ -41,6 +65,7 @@ export default function CommentList({ commentData }: CommentListProps) {
           comment={comment}
           currentUser={commentData.currentUser}
           onVote={handleVote}
+          onEdit={handleEdit}
         />
       ))}
       <CommentForm currentUser={commentData.currentUser} />
