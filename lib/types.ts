@@ -69,3 +69,8 @@ export type CommentEditFromProps = {
   onUpdate: (cotent: string) => void;
   onCancel: () => void;
 };
+
+export type DeleteConfirmationProps = {
+  onCancel: () => void;
+  onConfirm: () => void;
+};

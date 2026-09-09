@@ -9,7 +9,7 @@ export default function CommentEditFrom({
   onUpdate,
 }: CommentEditFromProps) {
   const [editContent, setEditContent] = useState(content);
-  const prefix = isReply && replayingTo ? `@${replayingTo} ` : "";
+  const prefix = isReply && replayingTo ? `@${replayingTo}, ` : "";
   const handleUpdate = () => {
     const trimmedContent = editContent.trim();
     if (!trimmedContent) {
@@ -36,7 +36,7 @@ export default function CommentEditFrom({
           }}
         >
           {isReply && replayingTo && (
-            <span contentEditable={false} className="font-bold text-purple-600">
+            <span contentEditable={false} className="">
               {prefix}
             </span>
           )}

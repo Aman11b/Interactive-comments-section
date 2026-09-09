@@ -4,6 +4,7 @@ import VoteControl from "./VoteControl";
 import CommentActions from "./CommentActions";
 import { useState } from "react";
 import CommentEditFrom from "./CommentEditFrom";
+import DeleteConfirmation from "./DeleteConfirmation";
 
 export default function CommentCard({
   comment,
@@ -16,6 +17,7 @@ export default function CommentCard({
   const imageName = comment.user.image.png.split("/").pop();
   const isCurrentUser = comment.user.username === currentUser.username;
   const [isEditing, setIsEditing] = useState(false);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   return (
     <>
@@ -57,7 +59,7 @@ export default function CommentCard({
                   isEditing={isEditing}
                   onDelete={() => {
                     if (!isCurrentUser) return;
-                    onDelete(comment.id);
+                    setShowDeleteConfirmation(true);
                   }}
                 />
               </div>
@@ -101,7 +103,7 @@ export default function CommentCard({
                   isEditing={isEditing}
                   onDelete={() => {
                     if (!isCurrentUser) return;
-                    onDelete(comment.id);
+                    setShowDeleteConfirmation(true);
                   }}
                 />
               </div>
@@ -125,6 +127,15 @@ export default function CommentCard({
             ))}
           </div>
         </div>
+      )}
+      {showDeleteConfirmation && (
+        <DeleteConfirmation
+          onCancel={() => setShowDeleteConfirmation(false)}
+          onConfirm={() => {
+            onDelete(comment.id);
+            setShowDeleteConfirmation(false);
+          }}
+        />
       )}
     </>
   );
