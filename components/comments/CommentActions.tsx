@@ -9,6 +9,7 @@ export default function CommentActions({
   isEditing,
   onEdit,
   onDelete,
+  onReply,
 }: CommentActionsProps) {
   return isCurrentUser ? (
     <div className="flex items-center gap-4">
@@ -51,6 +52,7 @@ export default function CommentActions({
     <button
       type="button"
       className="flex font-bold items-center gap-2 text-purple-600 "
+      onClick={onReply}
     >
       <Image src={ReplyIcon} alt="" width={14} height={16} className="h-auto" />
       Reply

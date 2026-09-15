@@ -5,14 +5,18 @@ import CommentActions from "./CommentActions";
 import { useState } from "react";
 import CommentEditFrom from "./CommentEditFrom";
 import DeleteConfirmation from "./DeleteConfirmation";
+import ReplyForm from "./ReplyForm";
 
 export default function CommentCard({
   comment,
   isReply = false,
   currentUser,
+  replyingTo,
   onVote,
   onEdit,
   onDelete,
+  onReply,
+  onReplySubmit,
 }: CommentCardProps) {
   const imageName = comment.user.image.png.split("/").pop();
   const isCurrentUser = comment.user.username === currentUser.username;
@@ -61,6 +65,7 @@ export default function CommentCard({
                     if (!isCurrentUser) return;
                     setShowDeleteConfirmation(true);
                   }}
+                  onReply={() => onReply(comment.id)}
                 />
               </div>
             </header>
@@ -105,12 +110,20 @@ export default function CommentCard({
                     if (!isCurrentUser) return;
                     setShowDeleteConfirmation(true);
                   }}
+                  onReply={() => onReply(comment.id)}
                 />
               </div>
             </div>
           </div>
         </div>
       </article>
+      {replyingTo === comment.id && (
+        <ReplyForm
+          currentUser={currentUser}
+          replyingTo={comment.user.username}
+          onSubmit={(content) => onReplySubmit(comment.id, content)}
+        />
+      )}
       {"replies" in comment && !isReply && comment.replies.length > 0 && (
         <div className="ml-4 border-l-2 border-grey-100 pl-6 md:ml-11 md:pl-6 ">
           <div className="flex flex-col gap-6">
@@ -119,10 +132,13 @@ export default function CommentCard({
                 key={reply.id}
                 comment={reply}
                 isReply
+                replyingTo={replyingTo}
                 currentUser={currentUser}
                 onVote={onVote}
                 onEdit={onEdit}
                 onDelete={onDelete}
+                onReply={onReply}
+                onReplySubmit={onReplySubmit}
               />
             ))}
           </div>

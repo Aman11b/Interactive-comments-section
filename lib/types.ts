@@ -35,6 +35,9 @@ export type CommentCardProps = {
   onVote: (id: number, amount: number) => void;
   onEdit: (id: number, content: string) => void;
   onDelete: (id: number) => void;
+  replyingTo: number | null;
+  onReply: (id: number) => void;
+  onReplySubmit: (id: number, content: string) => void;
 };
 
 export type CommentsData = {
@@ -56,10 +59,13 @@ export type CommentActionsProps = {
   isEditing: boolean;
   onEdit: () => void;
   onDelete: () => void;
+  onReply: () => void;
 };
 
-export type CommentFormProps = {
+export type ReplyFormProps = {
   currentUser: User;
+  replyingTo?: string;
+  onSubmit: (content: string) => void;
 };
 
 export type CommentEditFromProps = {

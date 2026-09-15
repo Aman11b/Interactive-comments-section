@@ -3,10 +3,11 @@
 import { CommentListProps } from "@/lib/types";
 import { useState } from "react";
 import CommentCard from "./CommentCard";
-import CommentForm from "./CommentForm";
 
 export default function CommentList({ commentData }: CommentListProps) {
   const [comments, setComments] = useState(commentData.comments);
+  const [replyingTo, setReplyingTo] = useState<number | null>(null);
+
   const handleDelete = (id: number) => {
     setComments((currentComments) =>
       currentComments
@@ -67,6 +68,36 @@ export default function CommentList({ commentData }: CommentListProps) {
       }),
     );
   };
+
+  const handleReplySubmit = (commentId: number, content: string) => {
+    const parentComment = comments.find((comment) => comment.id === commentId);
+
+    if (!parentComment) {
+      return;
+    }
+    const newReply = {
+      id: Date.now(),
+      content,
+      createdAt: "just now",
+      score: 0,
+      replyingTo: parentComment.user.username,
+      user: commentData.currentUser,
+    };
+
+    setComments((currentComments) =>
+      currentComments.map((comment) =>
+        comment.id === commentId
+          ? {
+              ...comment,
+              replies: [...comment.replies, newReply],
+            }
+          : comment,
+      ),
+    );
+
+    setReplyingTo(null);
+  };
+
   return (
     <section className="flex flex-col gap-6">
       {comments.map((comment) => (
@@ -74,12 +105,14 @@ export default function CommentList({ commentData }: CommentListProps) {
           key={comment.id}
           comment={comment}
           currentUser={commentData.currentUser}
+          replyingTo={replyingTo}
           onVote={handleVote}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          onReply={(id) => setReplyingTo(id)}
+          onReplySubmit={handleReplySubmit}
         />
       ))}
-      <CommentForm currentUser={commentData.currentUser} />
     </section>
   );
 }
