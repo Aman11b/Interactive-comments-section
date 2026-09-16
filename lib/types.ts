@@ -66,6 +66,7 @@ export type ReplyFormProps = {
   currentUser: User;
   replyingTo?: string;
   onSubmit: (content: string) => void;
+  isComment?: boolean;
 };
 
 export type CommentEditFromProps = {

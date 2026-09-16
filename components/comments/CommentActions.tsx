@@ -16,7 +16,7 @@ export default function CommentActions({
       <button
         type="button"
         onClick={onDelete}
-        className={`flex items-center gap-2 font-bold text-pink-400 ${
+        className={`flex items-center gap-2 font-bold text-pink-400 hover:opacity-50 ${
           isEditing ? "cursor-not-allowed  opacity-50" : "cursor-pointer "
         }`}
         disabled={isEditing}
@@ -35,7 +35,9 @@ export default function CommentActions({
         onClick={onEdit}
         disabled={isEditing}
         className={`flex items-center gap-2 font-bold text-purple-600 ${
-          isEditing ? "cursor-not-allowed  opacity-50" : "cursor-pointer"
+          isEditing
+            ? "cursor-not-allowed  opacity-50"
+            : "cursor-pointer hover:opacity-50"
         }`}
       >
         <Image
@@ -51,7 +53,7 @@ export default function CommentActions({
   ) : (
     <button
       type="button"
-      className="flex font-bold items-center gap-2 text-purple-600 "
+      className="flex font-bold items-center gap-2 text-purple-600 cursor-pointer hover:opacity-50 "
       onClick={onReply}
     >
       <Image src={ReplyIcon} alt="" width={14} height={16} className="h-auto" />

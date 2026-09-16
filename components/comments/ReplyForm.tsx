@@ -5,6 +5,7 @@ import React, { useState } from "react";
 export default function ReplyForm({
   currentUser,
   replyingTo,
+  isComment,
   onSubmit,
 }: ReplyFormProps) {
   const imageName = currentUser.image.png.split("/").pop();
@@ -33,23 +34,33 @@ export default function ReplyForm({
           height={40}
           className="hidden md:block shrink-0"
         />
-        <div
-          contentEditable
-          suppressContentEditableWarning
-          role="textbox"
-          aria-label={`Reply to ${replyingTo}`}
-          className="min-h-24 w-full rounded-lg border border-grey-100 p-4 text-grey-500 outline-none wrap-break-word"
-          onInput={(event) => {
-            const text = event.currentTarget.textContent ?? "";
-            if (text.startsWith(prefix)) {
-              setReplyContent(text.slice(prefix.length));
-            } else {
-              setReplyContent(text);
-            }
-          }}
-        >
-          <span contentEditable={false}>{prefix}</span>
-        </div>
+        {isComment ? (
+          <textarea
+            value={replyContent}
+            onChange={(event) => setReplyContent(event.target.value)}
+            placeholder="Add a comment"
+            aria-label="Add a Comment"
+            className="min-h-24 w-full resize-none rounded-lg border border-grey-100 p-4 text-grey-500 outline-none hover:border-purple-600 cursor-pointer"
+          ></textarea>
+        ) : (
+          <div
+            contentEditable
+            suppressContentEditableWarning
+            role="textbox"
+            aria-label={`Reply to ${replyingTo}`}
+            className="min-h-24 w-full rounded-lg border border-grey-100 p-4 text-grey-500 outline-none wrap-break-word hover:border-purple-600 cursor-pointer"
+            onInput={(event) => {
+              const text = event.currentTarget.textContent ?? "";
+              if (text.startsWith(prefix)) {
+                setReplyContent(text.slice(prefix.length));
+              } else {
+                setReplyContent(text);
+              }
+            }}
+          >
+            <span contentEditable={false}>{prefix}</span>
+          </div>
+        )}
 
         <div className=" flex items-center justify-between md:contents">
           <Image
@@ -61,9 +72,9 @@ export default function ReplyForm({
           />
           <button
             type="submit"
-            className="rounded-lg bg-purple-600 px-6 py-3 font-bold text-white"
+            className="rounded-lg bg-purple-600 px-6 py-3 font-bold text-white hover:opacity-50 cursor-pointer"
           >
-            REPLY
+            {isComment ? "SEND" : "REPLY"}
           </button>
         </div>
       </div>

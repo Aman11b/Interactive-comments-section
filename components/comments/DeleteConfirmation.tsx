@@ -18,14 +18,14 @@ export default function DeleteConfirmation({
           <button
             type="button"
             onClick={onCancel}
-            className="w-full cursor-pointer rounded-lg bg-grey-100 px-5 py-3 text-sm font-bold text-grey-500 sm:w-auto sm:text-base"
+            className="w-full cursor-pointer rounded-lg bg-grey-100 px-5 py-3 text-sm font-bold text-grey-500 sm:w-auto sm:text-base hover:opacity-50"
           >
             NO, CANCEL
           </button>
           <button
             type="button"
             onClick={onConfirm}
-            className="w-full cursor-pointer rounded-lg bg-pink-400 px-5 py-3 text-sm font-bold text-white sm:w-auto sm:text-base"
+            className="w-full cursor-pointer rounded-lg bg-pink-400 px-5 py-3 text-sm font-bold text-white sm:w-auto sm:text-base hover:opacity-50"
           >
             YES, DELETE
           </button>

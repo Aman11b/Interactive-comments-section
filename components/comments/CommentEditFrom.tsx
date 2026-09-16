@@ -47,14 +47,14 @@ export default function CommentEditFrom({
         <button
           type="button"
           onClick={onCancel}
-          className="cursor-pointer rounded-lg bg-grey-100 px-5 py-3 font-bold text-grey-500"
+          className="cursor-pointer rounded-lg bg-grey-100 px-5 py-3 font-bold text-grey-500 hover:opacity-50"
         >
           CANCEL
         </button>
         <button
           type="button"
           onClick={handleUpdate}
-          className="cursor-pointer rounded-lg bg-purple-600 px-5 py-3 font-bold text-white"
+          className="cursor-pointer rounded-lg bg-purple-600 px-5 py-3 font-bold text-white hover:opacity-50"
         >
           UPDATE
         </button>

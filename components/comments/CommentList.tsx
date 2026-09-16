@@ -3,10 +3,12 @@
 import { CommentListProps } from "@/lib/types";
 import { useState } from "react";
 import CommentCard from "./CommentCard";
+import ReplyForm from "./ReplyForm";
 
 export default function CommentList({ commentData }: CommentListProps) {
   const [comments, setComments] = useState(commentData.comments);
   const [replyingTo, setReplyingTo] = useState<number | null>(null);
+  const [hasAddedComment, setHasAddedComment] = useState(false);
 
   const handleDelete = (id: number) => {
     setComments((currentComments) =>
@@ -98,6 +100,19 @@ export default function CommentList({ commentData }: CommentListProps) {
     setReplyingTo(null);
   };
 
+  const handleCommentSubmit = (content: string) => {
+    const newComment = {
+      id: Date.now(),
+      content,
+      createdAt: "just now",
+      score: 0,
+      user: commentData.currentUser,
+      replies: [],
+    };
+    setComments((currentComment) => [...currentComment, newComment]);
+
+    setHasAddedComment(true);
+  };
   return (
     <section className="flex flex-col gap-6">
       {comments.map((comment) => (
@@ -113,6 +128,13 @@ export default function CommentList({ commentData }: CommentListProps) {
           onReplySubmit={handleReplySubmit}
         />
       ))}
+      {!hasAddedComment && (
+        <ReplyForm
+          currentUser={commentData.currentUser}
+          isComment
+          onSubmit={handleCommentSubmit}
+        />
+      )}
     </section>
   );
 }
