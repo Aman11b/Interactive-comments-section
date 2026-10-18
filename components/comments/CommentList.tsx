@@ -124,7 +124,9 @@ export default function CommentList({ commentData }: CommentListProps) {
           onVote={handleVote}
           onEdit={handleEdit}
           onDelete={handleDelete}
-          onReply={(id) => setReplyingTo(id)}
+          onReply={(id) =>
+            setReplyingTo((currentId) => (currentId === id ? null : id))
+          }
           onReplySubmit={handleReplySubmit}
         />
       ))}
